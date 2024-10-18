@@ -26,7 +26,7 @@ const skeleton = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
         </GameCardContainer>
 
         )}
-        {data.map((game) => (
+        {data?.results.map((game) => (
 
           <GameCardContainer key={game.id}>
             <GameCard game={game}></GameCard>
@@ -34,7 +34,7 @@ const skeleton = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
         ))}
       </SimpleGrid>
-      {error && <Text color={"red"}>{error}</Text>}
+      {error && <Text color={"red"}></Text>}
     </>
   );
 };
