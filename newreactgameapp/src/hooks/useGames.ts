@@ -21,7 +21,7 @@ export interface FetchGameResponse<T> {
 }
 const useGames = (gameQuery: GameQuery) =>
   useQuery({
-    queryKey: [CACHE_KEY_GAMES],
+    queryKey: [CACHE_KEY_GAMES, gameQuery],
     queryFn: () =>
       apiClient
         .get<FetchGameResponse<Game>>("/games", {
