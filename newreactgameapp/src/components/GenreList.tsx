@@ -1,50 +1,48 @@
-import {
-  Button,
-  HStack,
-  Image,
-  List,
-  ListItem,
-  Spinner,
-} from "@chakra-ui/react";
-import useData from "../hooks/useData";
-import { Genre } from "../hooks/useGenres";
+//imports
+import { Button, HStack, Image, List, ListItem, Spinner } from "@chakra-ui/react";
+// import useData from "../hooks/useData";
+import useGenres, { Genre } from "../hooks/useGenres"
 import getCroppedImageUrl from "../services/imageUrl";
 
 interface Props {
-  onSelectedGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
+    onSelectedGenre: (genre:Genre) => void
+    selectedGenre: Genre | null
 }
 
-const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
-  const { data, isLoading } = useData<Genre>("/genres");
+const GenreList = ({onSelectedGenre, selectedGenre}:Props) => {
+
+    //usestates
+    // const {data} = useGenres<Genre>('/genres');
+    
+    const {data, isLoading} = useGenres();
+
+    //useeffects
+
+
+
 
   return (
+    
     <>
-      <List>
-        {isLoading && <Spinner />}
-        {data.map((genre) => (
-          <ListItem marginBottom={10} key={genre.id}>
-            <HStack>
-              <Image
-                objectFit={"cover"}
-                boxSize={16}
-                borderRadius={4}
-                src={getCroppedImageUrl(genre.image_background)}
-              />
-              <Button
-                color={genre.id === selectedGenre?.id ? "bold" : "normal"}
-                fontSize={"lg"}
-                variant={"link"}
-                onClick={() => onSelectedGenre(genre)}
-              >
-                {genre.name}
-              </Button>
-            </HStack>
-          </ListItem>
-        ))}
-      </List>
-    </>
-  );
-};
+        <List paddingBottom={5}>
+                {isLoading && <Spinner/>}
 
-export default GenreList;
+                {data?.results.map((genre) => <ListItem key={genre.id} marginBottom={3}>
+                
+                    <HStack>
+                        <Image objectFit={'cover'} boxSize={16} borderRadius={4} src={getCroppedImageUrl(genre.image_background)}/>
+                        <Button color={genre.id === selectedGenre?.id ? 'blue.500' : 'normal'} fontSize={'lg'} variant={'link'} onClick={() => onSelectedGenre(genre)} >
+                                
+                                {genre.name}
+
+                        </Button>
+                    </HStack>
+                </ListItem>)}
+            
+        </List>
+    
+    </>
+  )
+}
+
+export default GenreList
